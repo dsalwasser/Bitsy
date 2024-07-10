@@ -8,7 +8,13 @@
 #include <cstddef>
 #include <limits>
 
+#if defined(BITSY_FAST_PDEP) && defined(__BMI2__)
+#define USE_PDEP
+#endif
+
+#ifdef USE_PDEP
 #include <immintrin.h>
+#endif
 
 namespace bitsy {
 
@@ -26,11 +32,11 @@ template <bool kUseBinarySearch = false,
           std::integral Int>
 [[nodiscard]] inline constexpr Int word_select1(Int word, std::size_t rank) {
   if constexpr (!kOverwriteFastPDEP) {
-#if defined(BITSY_FAST_PDEP) && defined(__BMI2__)
+#ifdef USE_PDEP
     // The following implementation is due to the following source:
     // https://stackoverflow.com/a/27453505
     const std::size_t rank_th_one = static_cast<std::size_t>(1) << (rank - 1);
-    return __builtin_ctzll(_pdep_u64(rank_th_one, word));
+    return std::countr_zero(_pdep_u64(rank_th_one, word));
 #endif
   }
 
