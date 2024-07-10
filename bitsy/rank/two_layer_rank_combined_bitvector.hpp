@@ -99,7 +99,7 @@ class TwoLayerRankCombinedBitVector {
         // an binary search (for select) without segfaulting or having to
         // consider an edge case.
         _data(_num_blocks * kNumWordsPerBlock +
-              kNumBlocksPerSuperblock * kNumWordsPerBlock),
+              (kNumBlocksPerSuperblock / 2) * kNumWordsPerBlock),
         _num_superblocks(math::div_ceil(length, kSuperblockDataWidth)),
         _superblock_data(_num_superblocks) {
     if (_num_blocks > 0) {
