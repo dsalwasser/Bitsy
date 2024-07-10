@@ -28,11 +28,11 @@ processors after the Zen 2 generation have a fast PDEP instruction.
 
 ### Huge Pages
 
-Furthermore, huge pages are used by default to improve performance. Thus, the
-implementation first tries to allocate (2 MiB sized) huge pages and allocates
-normal pages as a fallback. However, if you do not want to use huge pages for
-some reason, this can be switched off with the additional CMake flags
-`-DBITSY_HUGE_PAGES=Off`.
+Furthermore, huge pages are used by default to improve performance. Thus, an
+attempt is first made to allocate 2-MiB-sized huge pages and if this does not
+work (e.g., if it is not supported by the system), normal pages are allocated
+instead. However, if you do not want to use huge pages for some reason, this
+can be switched off with the additional CMake flags `-DBITSY_HUGE_PAGES=Off`.
 
 ### Cross-Compilation
 
