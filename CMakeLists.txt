@@ -17,8 +17,8 @@ if (CMAKE_EXPORT_COMPILE_COMMANDS)
 endif()
 
 # Add configuration options for Bitsy.
-option(BITSY_HUGE_PAGES "Use huge pages." OFF)
-option(BITSY_FAST_PDEP "Use PDEP instructions." OFF)
+option(BITSY_HUGE_PAGES "Use huge pages." ON)
+option(BITSY_USE_PDEP "Use PDEP instructions." ON)
 
 # Add build options for Bitsy.
 option(BUILD_WITH_MTUNE_NATIVE "Build with -mtune=native." ON)
@@ -30,7 +30,7 @@ option(BUILD_TESTS "Build unit tests." OFF)
 option(BUILD_BENCHMARKS "Build benchmark binaries." OFF)
 
 # Log configuration and setup flags etc.
-message(STATUS "Following configurations are used for Bitsy:")
+message(STATUS "Following configuration is used for Bitsy:")
 if (BITSY_HUGE_PAGES)
   add_definitions(-DBITSY_HUGE_PAGES)
   message(STATUS "> Huge Pages: enabled")
@@ -38,20 +38,26 @@ else ()
   message(STATUS "> Huge Pages: disabled")
 endif ()
 
-if (BITSY_FAST_PDEP)
-  add_definitions(-DBITSY_FAST_PDEP)
+if (BITSY_USE_PDEP)
+  add_definitions(-DBITSY_USE_PDEP)
   add_compile_options(-mbmi2)
-  message(STATUS "> Fast PDEP: enabled")
+  message(STATUS "> Use PDEP: enabled")
 else ()
-  message(STATUS "> Fast PDEP: disabled")
+  message(STATUS "> Use PDEP: disabled")
 endif ()
 
 if (BUILD_WITH_MTUNE_NATIVE)
   add_compile_options(-mtune=native -march=native)
+  message(STATUS "> Use -mtune=native: enabled")
+else ()
+  message(STATUS "> Use -mtune=native: disabled")
 endif ()
 
 if (BUILD_WITH_DEBUG_SYMBOLS)
   add_compile_options(-g -g3)
+  message(STATUS "> Debug Symbols: enabled")
+else ()
+  message(STATUS "> Debug Symbols: disabled")
 endif ()
 
 if (BUILD_WITH_CCACHE)

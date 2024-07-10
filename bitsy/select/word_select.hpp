@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <limits>
 
-#if defined(BITSY_FAST_PDEP) && defined(__BMI2__)
+#if defined(BITSY_USE_PDEP) && defined(__BMI2__)
 #define USE_PDEP
 #endif
 

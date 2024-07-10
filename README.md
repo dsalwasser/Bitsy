@@ -6,7 +6,7 @@ space overhead of 3.40% in its default (fastest) configuration.
 ## How to build
 
 The requirements to build Bitsy are a C++20 compiler (GCC/Clang), CMake
-(v3.16+) and a build system (Ninja/GNU Make etc.). To build Bitsy follow the
+(v3.16+) and a build system (Ninja, GNU Make, etc.). To build Bitsy follow the
 steps below:
 ```shell
 # Fetch a copy of Bitsy if not already present
@@ -20,9 +20,11 @@ cmake --build build --parallel
 ### PDEP Instructions
 
 By default, the PDEP instruction is used. If Bitsy is running on a machine that
-has a slow PDEP instruction (e.g. **Zen 1/Zen 2 generation AMD processors**),
-then we recommend disabling this feature by adding the CMake flag
-`-DBITSY_FAST_PDEP=Off`, as alternative implementations will be faster.
+has a slow PDEP instruction, then we recommend disabling this feature by adding
+the CMake flag `-DBITSY_USE_PDEP=Off`, as alternative implementations will be
+faster. Processors with a slow PDEP instruction are for example Zen 1 and Zen 2
+generation AMD processors. On the other hand, all Intel processors and AMD
+processors after the Zen 2 generation have a fast PDEP instruction.
 
 ### Huge Pages
 
