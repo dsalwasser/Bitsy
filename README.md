@@ -1,7 +1,8 @@
 # Bitsy
 
-Bitsy is an itsy-bitsy bit vector with rank and select support, which has a
-space overhead of 3.40% in its default (fastest) configuration.
+Bitsy is an itsy-bitsy bit vector with rank and select support, whose rank and
+select data structures have a combined space overhead of 3.40% in its default
+(fastest) configuration.
 
 ## How to build
 
